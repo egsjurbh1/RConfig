@@ -64,10 +64,12 @@ namespace CameraControl
 			{3,3,4,4,4,0}, {3,3,4,4,4,0}, {1,2,2,3,3,0},{0,1,2,2,2,0},{0,0,1,2,2,0},{0,0,0,0,0,0}
 		};
 	}
-    public class EE3RunData
+    
+    public enum EE3RunMode
     {
-        public static int MODE0 = 0;
-        public static int MODE1 = 1;
-        public static int MODE2 = 2;
+        Mode0,  //工作模式0（调试）
+        Mode1,  //工作模式1
+        Mode2   //工作模式2
     }
+
 }

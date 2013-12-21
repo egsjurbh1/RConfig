@@ -2,7 +2,7 @@
  * Created by SharpDevelop.
  * User: Wragon,LQ
  * Date: 2012/4/22
- * Update: 2013/12/15
+ * Update: 2013/12/21
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
@@ -171,8 +171,6 @@ namespace CameraControl
                 Clear();
                 choseIP = e.Node.Name.ToString();
                 Device.Enabled = true;
-                //已选用标记
-                //e.Node.ForeColor = Color.ForestGreen;
                 //按设备类型限制可用按钮
                 if (e.Node.FirstNode.Name.Contains("EagleEye3"))
                 {
@@ -201,22 +199,7 @@ namespace CameraControl
             }
             else
             {
-                ////Device.Enabled = false;
-                //if (e.Node.Level == 1)
-                //{
-                //    Clear();
-                //    //string index = e.Node.Name.Substring(6);
-                //    //int ind = Int32.Parse(index);
-                //    //int ind = 1;
-                //    if (SingletonSocket.Instance.CheckConnection())
-                //    {
-                //        SingletonSocket.Instance.SendCommand(CommonData.CHOOSECAM, ind);
-                //    }
-                //    else
-                //    {
-                //        MessageBox.Show("连接失败");
-                //    }
-                //}
+
             }
         }
         #endregion
@@ -405,22 +388,6 @@ namespace CameraControl
         void PicClick(object sender, EventArgs e)
         {
             PictureBox picBox = (PictureBox)sender;
-
-            //if (picBox.Equals(PicOne))
-            //{
-            //    curChs = 0;
-            //    PicBox.Image = PicOne.Image;
-            //}
-            //else if (picBox.Equals(PicTwo))
-            //{
-            //    curChs = 1;
-            //    PicBox.Image = PicTwo.Image;
-            //}
-            //else if (picBox.Equals(PicTrd))
-            //{
-            //    curChs = 2;
-            //    PicBox.Image = PicTrd.Image;
-            //}
         }
 
         private List<Point> rec = new List<Point>();

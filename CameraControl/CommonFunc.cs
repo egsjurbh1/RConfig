@@ -42,7 +42,7 @@ namespace CameraControl
     
 
     
-    //图像转换YUV420→RGB
+        //图像转换YUV420→RGB
         public static Bitmap ConvertYUV420(byte[] yuvFrame, int width, int height)
         {
 
@@ -91,7 +91,7 @@ namespace CameraControl
 
 
 
-      //图像转换YUV422→RGB
+        //图像转换YUV422→RGB
 		public static Bitmap ConvertYUV422(byte[] yuvFrame, int width, int height){
 		
 			int r, g, b;

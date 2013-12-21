@@ -1,7 +1,7 @@
 ﻿/*
  * Created by LQ.
  * Brief: EagleEye3系列相机功能配置 
- * Date: 2013/12/5
+ * Date: 2013/12/21
  * Update: 
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
@@ -150,15 +150,15 @@ namespace CameraControl
             //“当前功能模式”高亮显示
             switch (runMode)
             {
-                case 1:
+                case (int)EE3RunMode.Mode1:
                     EE3mode1.Checked = true;
                     EE3mode1.ForeColor = Color.ForestGreen;
                     break;
-                case 2:
+                case (int)EE3RunMode.Mode2:
                     EE3mode2.Checked = true;
                     EE3mode2.ForeColor = Color.ForestGreen;
                     break;
-                case 0:
+                case (int)EE3RunMode.Mode0:
                     EE3mode0.Checked = true;
                     EE3mode0.ForeColor = Color.ForestGreen;
                     break;
@@ -209,34 +209,34 @@ namespace CameraControl
         //Mode1选择
         private void EE3mode1_CheckedChanged(object sender, EventArgs e)
         {
-            runMode = EE3RunData.MODE1;
+            runMode = (int)EE3RunMode.Mode1;
         }
         //Mode2选择
         private void EE3mode2_CheckedChanged(object sender, EventArgs e)
         {
-            runMode = EE3RunData.MODE2;
+            runMode = (int)EE3RunMode.Mode2;
         }
         //Mode0选择
         private void EE3mode0_CheckedChanged(object sender, EventArgs e)
         {
-            runMode = EE3RunData.MODE0;
+            runMode = (int)EE3RunMode.Mode0;
         }
 
-        //“下一步”按钮
+        //“下一步”
         private void EE3BCnextStep_Click(object sender, EventArgs e)
         {
             switch (runMode)
             {
 
-                case 0:  //暂时共用
+                case (int)EE3RunMode.Mode0:  //暂时共用
                     EE3DCgbmode1.Visible = true;
                     EE3DCgbmode2.Visible = false;
                     break;
-                case 1:
+                case (int)EE3RunMode.Mode1:
                     EE3DCgbmode1.Visible = true;
                     EE3DCgbmode2.Visible = false;
                     break;
-                case 2:
+                case (int)EE3RunMode.Mode2:
                     EE3DCgbmode1.Visible = false;
                     EE3DCgbmode2.Visible = true;
                     break;
@@ -270,7 +270,7 @@ namespace CameraControl
             }
 
         }
-        //“上一步”按钮
+        //“上一步”
         private void Mode1_lastStep_Click(object sender, EventArgs e)
         {
             EE3DCgroupBox1.Visible = true;

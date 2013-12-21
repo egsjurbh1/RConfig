@@ -125,9 +125,7 @@ namespace CameraControl
             TB_Port.Text = srvPort.ToString();
             CB_Num.SelectedIndex = number - 1;
             TB_ZQ.Text = sendZq.ToString();
-            //TPS.Value = new DateTime(2012, 12, 31, stime / 60, stime % 60, 0);
-            //TPE.Value = new DateTime(2012, 12, 31, etime / 60, etime % 60, 0);
-            //TB_NT.Text = numNt.ToString();
+
             if (stime == 0 && etime == 24 * 60)
             {
                 CB_ALLDAY.Checked = true;

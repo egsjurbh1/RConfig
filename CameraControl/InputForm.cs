@@ -167,10 +167,7 @@ namespace CameraControl
             if (TB_PX.Text == "") TB_PX.Text = "0";
             if (TB_PY.Text == "") TB_PY.Text = "0";
             if (TB_ZQ.Text == "") TB_ZQ.Text = "0";
-            if (TB_NT.Text == "") TB_NT.Text = "0";
-                 
-			//camHeigh = Double.Parse(txHeigh.Text.ToString());
-			//roadLongA = Double.Parse(txLongA.Text.ToString());
+            if (TB_NT.Text == "") TB_NT.Text = "0";            
 
             camIP = ITB_Cam.Text;
             camPX = Int32.Parse(TB_PX.Text);
