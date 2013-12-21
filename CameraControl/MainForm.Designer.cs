@@ -125,7 +125,7 @@ namespace CameraControl
             // 
             this.openExeToolStripMenuItem.Enabled = false;
             this.openExeToolStripMenuItem.Name = "openExeToolStripMenuItem";
-            this.openExeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openExeToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.openExeToolStripMenuItem.Text = "启动监控";
             this.openExeToolStripMenuItem.Visible = false;
             this.openExeToolStripMenuItem.Click += new System.EventHandler(this.OpenExeButtonClick);
@@ -133,14 +133,14 @@ namespace CameraControl
             // CurConfigSet
             // 
             this.CurConfigSet.Name = "CurConfigSet";
-            this.CurConfigSet.Size = new System.Drawing.Size(152, 22);
+            this.CurConfigSet.Size = new System.Drawing.Size(136, 22);
             this.CurConfigSet.Text = "当前配置(&C)";
             this.CurConfigSet.Click += new System.EventHandler(this.CurConfigSet_Click);
             // 
             // DefaultConfig
             // 
             this.DefaultConfig.Name = "DefaultConfig";
-            this.DefaultConfig.Size = new System.Drawing.Size(152, 22);
+            this.DefaultConfig.Size = new System.Drawing.Size(136, 22);
             this.DefaultConfig.Text = "出厂设置";
             this.DefaultConfig.Click += new System.EventHandler(this.DefaultConfig_Click);
             // 
@@ -148,40 +148,40 @@ namespace CameraControl
             // 
             this.UpdateDsp.Name = "UpdateDsp";
             this.UpdateDsp.ShortcutKeyDisplayString = "";
-            this.UpdateDsp.Size = new System.Drawing.Size(152, 22);
+            this.UpdateDsp.Size = new System.Drawing.Size(136, 22);
             this.UpdateDsp.Text = "更新DSP(&U)";
             this.UpdateDsp.Click += new System.EventHandler(this.UpdateDsp_Click);
             // 
             // UpdateApp
             // 
             this.UpdateApp.Name = "UpdateApp";
-            this.UpdateApp.Size = new System.Drawing.Size(152, 22);
+            this.UpdateApp.Size = new System.Drawing.Size(136, 22);
             this.UpdateApp.Text = "更新APP(&A)";
             this.UpdateApp.Click += new System.EventHandler(this.UpdateApp_Click);
             // 
             // EE3DefaultConfig
             // 
             this.EE3DefaultConfig.Name = "EE3DefaultConfig";
-            this.EE3DefaultConfig.Size = new System.Drawing.Size(152, 22);
+            this.EE3DefaultConfig.Size = new System.Drawing.Size(136, 22);
             this.EE3DefaultConfig.Text = "功能配置";
             this.EE3DefaultConfig.Click += new System.EventHandler(this.EE3DefaultConfig_Click);
             // 
             // pToolStripMenuItem1
             // 
             this.pToolStripMenuItem1.Name = "pToolStripMenuItem1";
-            this.pToolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.pToolStripMenuItem1.Size = new System.Drawing.Size(133, 6);
             // 
             // CoilSet
             // 
             this.CoilSet.Name = "CoilSet";
-            this.CoilSet.Size = new System.Drawing.Size(152, 22);
+            this.CoilSet.Size = new System.Drawing.Size(136, 22);
             this.CoilSet.Text = "线圈配置(&L)";
             this.CoilSet.Click += new System.EventHandler(this.CoilSet_Click);
             // 
             // rebootToolStripMenuItem
             // 
             this.rebootToolStripMenuItem.Name = "rebootToolStripMenuItem";
-            this.rebootToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rebootToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.rebootToolStripMenuItem.Text = "重启设备(&R)";
             this.rebootToolStripMenuItem.Click += new System.EventHandler(this.RebootButtonClick);
             // 
