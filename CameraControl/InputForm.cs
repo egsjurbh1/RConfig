@@ -133,7 +133,7 @@ namespace CameraControl
 		
 		void Button2Click(object sender, EventArgs e)
 		{
-            MemoryStream ms = SingletonSocket.Instance.SendCfgCommand(CommonData.GETDAFAULTCFG, 0);
+            MemoryStream ms = SingletonSocket.Instance.RecvCfgData(CommonData.GETDAFAULTCFG, 0);
 
             if (ms.Length == 0)
             {

@@ -1,8 +1,8 @@
 ﻿/*
  * Created by LQ.
  * Brief: EagleEye3系列相机功能配置 
- * Date: 2013/12/21
- * Update: 
+ * Date: 2013/12/27
+ * Version: 0.1.0
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
@@ -458,11 +458,12 @@ namespace CameraControl
             }
         }
 
-       
-
-
-
-
+        private int res;
+        //关闭窗口时，断开本次连接
+        private void EE3DefaultConfig_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            res = SingletonSocket.Instance.SendCommand(CommonData.CANCELCMD, 0);
+        }
 
     }
 }

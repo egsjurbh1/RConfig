@@ -2,8 +2,8 @@
  * Created by SharpDevelop.
  * User: Wragon,LQ
  * Date: 2012/4/22
- * Update: 2013/12/21
- * 
+ * Update: 2013/12/26
+ * Version:0.1.0
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
@@ -48,7 +48,7 @@ namespace CameraControl
             Init();
 
         }
-
+        //初始化
         private void Init()
         {
             CommonData.Bmps[0] = null;
@@ -68,8 +68,9 @@ namespace CameraControl
         }
         #endregion
 
-        #region 查询设备
+        #region 查询显示在线设备
         private Thread ThFindClients = null;
+        //显示在线设备
         void ConnectButtonClick(object sender, EventArgs e)
         {
             mainProgressBar.Visible = true;
@@ -83,15 +84,16 @@ namespace CameraControl
                 ThFindClients.Start();
 
             }
-
+            //UDP广播查询在线设备
             SingletonSocket.Instance.SayHello();
 
         }
 
+        //更新IP和设备信息
         public void UpdateCameraInfo(CameraInfo info)
         {
             string ip = info.IP;
-
+            //相机IP加入节点
             if (!CameraList.Nodes.ContainsKey(ip))
             {
                 CameraList.Nodes.Add(ip, ip);
@@ -99,10 +101,9 @@ namespace CameraControl
                 foreach (String cam in info.camera)
                 {
                     CameraList.Nodes[ip].Nodes.Add(cam, cam);
-
                 }
             }
-            CameraList.Sort();//排序
+            CameraList.Sort();//列表排序
             ClassifyDevice();//设备分类
             mainProgressBar.Value = 100;
         }
@@ -134,7 +135,7 @@ namespace CameraControl
 
 
             }
-            //设备数量统计
+            //设备统计信息状态栏显示
             StringBuilder sb = new StringBuilder();
             sb.Append("当前在线设备：");
             if (count1 > 0)
@@ -160,7 +161,7 @@ namespace CameraControl
         }
 
 
-        //点击IP节点事件
+        //点击IP节点
         void CameraListClick(object sender, TreeNodeMouseClickEventArgs e)
         {
 
@@ -169,6 +170,7 @@ namespace CameraControl
             if (e.Node.Level == 0)
             {
                 Clear();
+                //获取IP地址
                 choseIP = e.Node.Name.ToString();
                 Device.Enabled = true;
                 //按设备类型限制可用按钮
@@ -195,12 +197,8 @@ namespace CameraControl
                     deviceID = 1;
                 }
 
-
             }
-            else
-            {
-
-            }
+            
         }
         #endregion
 
@@ -220,6 +218,24 @@ namespace CameraControl
             curChs = -1;
             isRec = false;
             isVideoing = true;
+            if (choseIP == null)
+            {
+                MessageBox.Show("请选择设备!");
+                return;
+            }
+
+            //初始化连接
+            if (!SingletonSocket.Instance.InitComSock(choseIP))
+            {
+                MessageBox.Show("连接失败!");
+                return;
+            }
+            //连接检测
+            if (!SingletonSocket.Instance.CheckConnection())
+            {
+                MessageBox.Show("连接失败!");
+                return;
+            }
 
             PointsetForm ifm = new PointsetForm();
 
@@ -644,6 +660,8 @@ namespace CameraControl
             ms.Close();
 
             SingletonSocket.Instance.CloseComSock();
+            //连接已关闭，“设备配置”按钮不可用
+            Device.Enabled = false;
         }
         //重新配置
         private void ResetConfig_Click(object sender, EventArgs e)
@@ -666,7 +684,15 @@ namespace CameraControl
         //取消配置
         private void CancelConfig_Click(object sender, EventArgs e)
         {
-
+            if (!SingletonSocket.Instance.CheckConnection())
+            {
+                if (choseIP != null)
+                {
+                    SingletonSocket.Instance.InitComSock(choseIP);
+                }
+            }
+            //关闭连接
+            SingletonSocket.Instance.SendCommand(CommonData.CANCELCMD, 0);
             MessageBox.Show("取消了配置");
             rec.Clear();
             PicBox.Refresh();
@@ -674,7 +700,9 @@ namespace CameraControl
             ResetConfig.Enabled = false;
             isRec = true;
             Init();
-            MsgShow.Text = "";
+            MsgShow.Text = "";  
+            //连接已关闭，“设备配置”按钮不可用
+            Device.Enabled = false;
         }
 
         #endregion
@@ -684,6 +712,24 @@ namespace CameraControl
         {
             int res = 0;
             int ress = 0;
+            if (choseIP == null)
+            {
+                MessageBox.Show("请选择设备!");
+                return;
+            }
+
+            //初始化连接
+            if (!SingletonSocket.Instance.InitComSock(choseIP))
+            {
+                MessageBox.Show("连接失败!");
+                return;
+            }
+            //连接检测
+            if (!SingletonSocket.Instance.CheckConnection())
+            {
+                MessageBox.Show("连接失败!");
+                return;
+            }
             if (!SingletonSocket.Instance.CheckConnection())
             {
 
@@ -720,6 +766,8 @@ namespace CameraControl
                 }
 
                 SingletonSocket.Instance.CloseComSock();
+                //连接已关闭，“设备配置”按钮不可用
+                Device.Enabled = false;
             }
         }
         //启动监控
@@ -752,10 +800,28 @@ namespace CameraControl
 
             mainProgressBar.Visible = true;
             mainProgressBar.Value = 0;//进度条
-            ChooseIPCheck();
+            
+            if (choseIP == null)
+            {
+                MessageBox.Show("请选择设备!");
+                return;
+            }
+
+            //初始化连接
+            if (!SingletonSocket.Instance.InitComSock(choseIP))
+            {
+                MessageBox.Show("连接失败!");
+                return;
+            }
+            //连接检测
+            if (!SingletonSocket.Instance.CheckConnection())
+            {
+                MessageBox.Show("连接失败!");
+                return;
+            }
 
             //获取当前配置信息
-            MemoryStream ms = SingletonSocket.Instance.SendCfgCommand(CommonData.GETDAFAULTCFG, 0);
+            MemoryStream ms = SingletonSocket.Instance.RecvCfgData(CommonData.GETDAFAULTCFG, 0);
 
             InitForm ifm = new InitForm();
             if (ms.Length == 0)
@@ -843,9 +909,27 @@ namespace CameraControl
 
             mainProgressBar.Visible = true;
             mainProgressBar.Value = 0;//进度条
-            ChooseIPCheck();
+            
+            if (choseIP == null)
+            {
+                MessageBox.Show("请选择设备!");
+                return;
+            }
 
-            MemoryStream ms = SingletonSocket.Instance.SendCfgCommand(CommonData.GETCONFIG, 0);
+            //初始化连接
+            if (!SingletonSocket.Instance.InitComSock(choseIP))
+            {
+                MessageBox.Show("连接失败!");
+                return;
+            }
+            //连接检测
+            if (!SingletonSocket.Instance.CheckConnection())
+            {
+                MessageBox.Show("连接失败!");
+                return;
+            }
+
+            MemoryStream ms = SingletonSocket.Instance.RecvCfgData(CommonData.GETCONFIG, 0);
 
             if (ms.Length == 0)
             {
@@ -935,9 +1019,25 @@ namespace CameraControl
             int ee3cameraIP = 0;
             int ee3serverIP = 0;
 
-            ChooseIPCheck();
+            if (choseIP == null)
+            {
+                MessageBox.Show("请选择设备!");
+                return;
+            }
+            //初始化连接
+            if (!SingletonSocket.Instance.InitComSock(choseIP))
+            {
+                MessageBox.Show("连接失败!");
+                return;
+            }
+            //连接检测
+            if (!SingletonSocket.Instance.CheckConnection())
+            {
+                MessageBox.Show("连接失败!");
+                return;
+            }
             //获取当前配置信息
-            MemoryStream ms = SingletonSocket.Instance.SendCfgCommand(CommonData.EE3_GETCONFIG, 0);
+            MemoryStream ms = SingletonSocket.Instance.RecvCfgData(CommonData.EE3_GETCONFIG, 0);
             EE3DefaultConfig ifm = new EE3DefaultConfig();
 
             if (ms.Length == 0)
@@ -1067,6 +1167,8 @@ namespace CameraControl
 
 
             SingletonSocket.Instance.CloseComSock();
+            //连接已关闭，“设备配置”按钮不可用
+            Device.Enabled = false;
         }
 
         #endregion
@@ -1229,28 +1331,14 @@ namespace CameraControl
             }
         }
 
+        #region 关于
         private void AboutBtn_Click(object sender, EventArgs e)
         {
             (new AboutForm()).ShowDialog();
         }
+        #endregion
 
-        private void ChooseIPCheck()
-        {
-            if (choseIP == null)
-            {
-                MessageBox.Show("没有选择设备!");
-                return;
-            }
 
-            if (!SingletonSocket.Instance.CheckConnection())
-            {
-                if (!SingletonSocket.Instance.InitComSock(choseIP))
-                {
-                    MessageBox.Show("连接失败!");
-                    return;
-                }
-            }
-        }
 
 
 

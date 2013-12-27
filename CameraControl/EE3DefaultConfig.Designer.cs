@@ -576,6 +576,7 @@
             this.Name = "EE3DefaultConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "EagleEye3系列智能相机功能配置";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EE3DefaultConfig_FormClosing);
             this.EE3DCgroupBox1.ResumeLayout(false);
             this.EE3DCgroupBox1.PerformLayout();
             this.EE3DCgbmode1.ResumeLayout(false);

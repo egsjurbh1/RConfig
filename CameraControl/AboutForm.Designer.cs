@@ -46,7 +46,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(26, 16);
+            this.label1.Location = new System.Drawing.Point(27, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 17);
             this.label1.TabIndex = 0;
@@ -56,7 +56,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(49, 42);
+            this.label2.Location = new System.Drawing.Point(39, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(129, 17);
             this.label2.TabIndex = 1;
@@ -90,21 +90,21 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(236, 12);
+            this.label7.Location = new System.Drawing.Point(109, 12);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 17);
             this.label7.TabIndex = 3;
-            this.label7.Text = "Build131221";
+            this.label7.Text = "Build131227";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(114, 12);
+            this.label6.Location = new System.Drawing.Point(188, 12);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(127, 17);
+            this.label6.Size = new System.Drawing.Size(110, 17);
             this.label6.TabIndex = 2;
-            this.label6.Text = "-  Official Release  - ";
+            this.label6.Text = "-  Official Release";
             // 
             // label4
             // 
@@ -119,26 +119,26 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(24, 12);
+            this.label3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(26, 12);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 17);
+            this.label3.Size = new System.Drawing.Size(86, 17);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Version 1.2.3";
+            this.label3.Text = "Version 1.2.4";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.label5.Location = new System.Drawing.Point(49, 60);
+            this.label5.Location = new System.Drawing.Point(39, 56);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(139, 17);
+            this.label5.Size = new System.Drawing.Size(246, 17);
             this.label5.TabIndex = 3;
-            this.label5.Text = "EagleEye3系列智能相机";
+            this.label5.Text = "EagleEye3系列智能相机(V0.275或以上版本)";
             // 
             // SureBtn
             // 
-            this.SureBtn.Location = new System.Drawing.Point(225, 77);
+            this.SureBtn.Location = new System.Drawing.Point(125, 84);
             this.SureBtn.Name = "SureBtn";
             this.SureBtn.Size = new System.Drawing.Size(82, 23);
             this.SureBtn.TabIndex = 2;

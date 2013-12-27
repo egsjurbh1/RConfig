@@ -142,8 +142,8 @@ namespace CameraControl
 		//“重置”按钮事件
 		void Button2Click(object sender, EventArgs e)
 		{
-            //发送当前配置
-            MemoryStream ms = SingletonSocket.Instance.SendCfgCommand(CommonData.GETDAFAULTCFG, 0);
+            //获取当前配置
+            MemoryStream ms = SingletonSocket.Instance.RecvCfgData(CommonData.GETDAFAULTCFG, 0);
 
             if (ms.Length == 0)
             {
