@@ -30,6 +30,7 @@ namespace CameraControl
     {
         private String choseIP = null;
         private int deviceID = 0;
+        private bool bIsConnectExist = false;
 
         public MainForm()
         {
@@ -55,10 +56,13 @@ namespace CameraControl
             CommonData.Bmps[1] = null;
             CommonData.Bmps[2] = null;
             CommonData.curPos = 0;
+            bIsConnectExist = false;
             PicBox.Image = null;
             choseIP = null;
             isRec = false;
             isVideoing = false;
+            Device.Enabled = false;
+            MsgShow.Text = "";
         }
 
         #region 广播时间
@@ -74,9 +78,25 @@ namespace CameraControl
         void ConnectButtonClick(object sender, EventArgs e)
         {
             mainProgressBar.Visible = true;
+            Device.Enabled = false;
+            MsgShow.Text = "";
             mainProgressBar.Value = 0;
             CameraList.Nodes.Clear();
 
+            //若还存在连接，则关闭上一次连接
+            if (bIsConnectExist)
+            {
+                if (!SingletonSocket.Instance.CheckConnection())
+                {
+                    if (choseIP != null)
+                    {
+                        SingletonSocket.Instance.InitComSock(choseIP);
+                    }
+                }
+                //关闭连接
+                SingletonSocket.Instance.SendCommand(CommonData.CANCELCMD, 0);
+            }
+            //查询
             if (ThFindClients == null)
             {
                 ThreadStart ts = new ThreadStart(SingletonSocket.Instance.FindClients);
@@ -198,6 +218,9 @@ namespace CameraControl
                 }
 
             }
+            //设备统计信息状态栏显示
+            MsgShow.Text = "已选择设备：" + choseIP;
+            MsgShow.ForeColor = Color.ForestGreen;
             
         }
         #endregion
@@ -236,7 +259,7 @@ namespace CameraControl
                 MessageBox.Show("连接失败!");
                 return;
             }
-
+            bIsConnectExist = true;//建立连接标记
             PointsetForm ifm = new PointsetForm();
 
             if (ifm.ShowDialog() == DialogResult.OK)
@@ -660,6 +683,7 @@ namespace CameraControl
             ms.Close();
 
             SingletonSocket.Instance.CloseComSock();
+            bIsConnectExist = false;//关闭连接标记
             //连接已关闭，“设备配置”按钮不可用
             Device.Enabled = false;
         }
@@ -693,6 +717,7 @@ namespace CameraControl
             }
             //关闭连接
             SingletonSocket.Instance.SendCommand(CommonData.CANCELCMD, 0);
+            bIsConnectExist = false;//关闭连接标记
             MessageBox.Show("取消了配置");
             rec.Clear();
             PicBox.Refresh();
@@ -738,7 +763,7 @@ namespace CameraControl
                     SingletonSocket.Instance.InitComSock(choseIP);
                 }
             }
-
+            bIsConnectExist = true;//建立连接标记
             if (SingletonSocket.Instance.CheckConnection())
             {
                 if (MessageBox.Show("确认要重启设备吗？", "注意", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -766,8 +791,10 @@ namespace CameraControl
                 }
 
                 SingletonSocket.Instance.CloseComSock();
+                bIsConnectExist = false;//关闭连接标记
                 //连接已关闭，“设备配置”按钮不可用
                 Device.Enabled = false;
+                MsgShow.Text = "";
             }
         }
         //启动监控
@@ -819,7 +846,7 @@ namespace CameraControl
                 MessageBox.Show("连接失败!");
                 return;
             }
-
+            bIsConnectExist = true;//建立连接标记
             //获取当前配置信息
             MemoryStream ms = SingletonSocket.Instance.RecvCfgData(CommonData.GETDAFAULTCFG, 0);
 
@@ -899,7 +926,9 @@ namespace CameraControl
 
             }
             SingletonSocket.Instance.CloseComSock();
+            bIsConnectExist = false;//关闭连接标记
             mainProgressBar.Visible = false;
+            MsgShow.Text = "";
         }
         #endregion
 
@@ -928,7 +957,7 @@ namespace CameraControl
                 MessageBox.Show("连接失败!");
                 return;
             }
-
+            bIsConnectExist = true;//建立连接标记
             MemoryStream ms = SingletonSocket.Instance.RecvCfgData(CommonData.GETCONFIG, 0);
 
             if (ms.Length == 0)
@@ -1006,7 +1035,9 @@ namespace CameraControl
                 }
             }
             SingletonSocket.Instance.CloseComSock();
+            bIsConnectExist = false;//关闭连接标记
             mainProgressBar.Visible = false;
+            MsgShow.Text = "";
 
         }
         #endregion
@@ -1036,6 +1067,7 @@ namespace CameraControl
                 MessageBox.Show("连接失败!");
                 return;
             }
+            bIsConnectExist = true;//建立连接标记
             //获取当前配置信息
             MemoryStream ms = SingletonSocket.Instance.RecvCfgData(CommonData.EE3_GETCONFIG, 0);
             EE3DefaultConfig ifm = new EE3DefaultConfig();
@@ -1116,13 +1148,26 @@ namespace CameraControl
                     default:
                         break;
                 }
+                //初始化连接
+                if (!SingletonSocket.Instance.InitComSock(choseIP))
+                {
+                    MessageBox.Show("连接失败!");
+                    return;
+                }
+                //连接检测
+                if (!SingletonSocket.Instance.CheckConnection())
+                {
+                    MessageBox.Show("连接失败!");
+                    return;
+                }
+                /*
                 if (!SingletonSocket.Instance.CheckConnection())
                 {
                     if (choseIP != null)
                     {
                         SingletonSocket.Instance.InitComSock(choseIP);
                     }
-                }
+                }*/
 
                 if (ifm.Roadnum1 >= 0 && ifm.Roadnum1 <= 99 && ifm.Roadnum2 >= 0 && ifm.Roadnum2 <= 99)
                 {
@@ -1136,6 +1181,7 @@ namespace CameraControl
                     {
                         res = SingletonSocket.Instance.SendCommand(CommonData.CANCELCMD, 0);
                         MessageBox.Show("已取消配置");
+                        MsgShow.Text = "";
                         ress = 1;
                         SingletonSocket.Instance.CloseComSock();
                     }
@@ -1167,8 +1213,10 @@ namespace CameraControl
 
 
             SingletonSocket.Instance.CloseComSock();
+            bIsConnectExist = false;//关闭连接标记
             //连接已关闭，“设备配置”按钮不可用
             Device.Enabled = false;
+            MsgShow.Text = "";
         }
 
         #endregion

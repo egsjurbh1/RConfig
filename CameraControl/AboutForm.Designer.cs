@@ -119,10 +119,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(26, 12);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 17);
+            this.label3.Size = new System.Drawing.Size(83, 17);
             this.label3.TabIndex = 0;
             this.label3.Text = "Version 1.2.4";
             // 
@@ -132,9 +132,9 @@
             this.label5.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.label5.Location = new System.Drawing.Point(39, 56);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(246, 17);
+            this.label5.Size = new System.Drawing.Size(262, 17);
             this.label5.TabIndex = 3;
-            this.label5.Text = "EagleEye3系列智能相机(V0.275或以上版本)";
+            this.label5.Text = "EagleEye3系列智能相机（V0.275或以上版本）";
             // 
             // SureBtn
             // 
